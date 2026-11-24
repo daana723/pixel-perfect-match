@@ -16,3 +16,7 @@
 - [ ] Stage 6: populated wheels. Blocked by ephemeris.
 - [ ] Stage 7: explicit opt-in cloud sync and authentication.
 - [ ] Stage 8: astronomical regression suite, security and deployment verification.
+## Commercial planning (current)
+- [x] Production Render config (Starter, not applied).
+- [ ] Report: pyswisseph vs direct C binding, licence risk for SaaS, Render vs Railway costs, provider-neutral architecture.
+- [ ] Payments: deferred until engine validated.

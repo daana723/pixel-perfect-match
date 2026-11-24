@@ -1,0 +1,27 @@
+# Render Blueprint — PRODUCTION (paid Starter). NOT APPLIED. Do not apply until
+# licensing is resolved. Provider-neutral: the service is a plain Docker image
+# configured only by env vars, so Railway/Fly/any container host can run it.
+services:
+  - type: web
+    name: hermes-trutine-calculation
+    runtime: docker
+    rootDir: calculation-service
+    dockerfilePath: ./Dockerfile
+    plan: starter
+    region: frankfurt
+    healthCheckPath: /api/v1/health
+    autoDeploy: false
+    envVars:
+      - key: SERVICE_ENABLED
+        value: "false"
+      - key: CALCULATION_SERVICE_TOKEN
+        generateValue: true
+      - key: ALLOWED_ORIGINS
+        sync: false
+      - key: EPHEMERIS_PATH
+        value: /ephemeris
+    # Ephemeris data files (licensed) would be mounted here; none supplied.
+    disk:
+      name: ephemeris
+      mountPath: /ephemeris
+      sizeGB: 1
