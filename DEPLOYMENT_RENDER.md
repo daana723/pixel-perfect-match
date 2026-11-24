@@ -1,6 +1,6 @@
-# Render deployment (prototype, not activated)
+# Render deployment (dormant drafts, not activated)
 
-**Do not deploy publicly with Swiss Ephemeris until the AGPL vs Professional licence decision is made.** The current service returns explicit "unavailable" responses and calculates nothing.
+**Current decision: local private testing only.** Private pyswisseph testing under AGPL terms is approved; public licensing/source-disclosure review remains outstanding. The offline CLI calculates real positions; HTTP endpoints still refuse astronomy. No Render draft was applied.
 
 ## Configuration (`render.yaml`)
 - Docker web service, root `calculation-service/`, free plan, `autoDeploy: false`.
@@ -9,10 +9,11 @@
 - `ALLOWED_ORIGINS`: comma-separated app origins for CORS. Empty means no browser origin is allowed.
 - Port is taken from Render's `PORT`.
 
-## Steps (when licensing is decided)
-1. In Render: New → Blueprint → select this repository. Never share Render credentials in chat.
-2. Set `ALLOWED_ORIGINS` to the published app URL.
-3. Confirm `/api/v1/health` responds; protected endpoints return 401 without the token.
-4. Add the token to the app's secure secrets for the server bridge (Stage 2 completion).
+## Why not Render Free now
+Render Free web services have public addresses. The private-service type is not available as a Free instance; web-service inbound IP restrictions require Scale/Enterprise. A bearer token does not make the service unreachable publicly. The owner's non-public requirement therefore selects local development, without paid infrastructure.
+
+See [Render Free](https://render.com/docs/free), [Private Services](https://render.com/docs/private-services), [Inbound IP Rules](https://render.com/docs/inbound-ip-rules), checked 2026-11-24. Free-plan dashboard/Blueprint availability was not tested with the owner's account; no Blueprint is required for current local work. Do not apply `render.yaml` or `render.production.yaml` now.
+
+See [PRIVATE_TESTING.md](PRIVATE_TESTING.md) for the no-listener calculation workflow. Remote deployment, secure bridge, caller controls, rate limits and corresponding-source review are still deferred.
 
 Free tier sleeps when idle; first request may take ~30–60 s.

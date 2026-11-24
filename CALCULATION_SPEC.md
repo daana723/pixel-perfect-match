@@ -1,12 +1,12 @@
-# Calculation specification — planned implementation
+# Calculation specification — private astronomy and unresolved historical work
 
 ## Current boundary
-There is no astronomical calculation implementation. Browser validation checks input shape, calendar validity and IANA identifier recognition; it does not resolve historical offsets. The Python scaffold validates identifiers with `zoneinfo` but does not convert local timestamps or run Swiss Ephemeris.
+The offline Python CLI now resolves civil times to UTC, calculates UT Julian Day, runs the pinned Swiss Ephemeris adapter, and exports real natal/prenatal planets, angles and houses. Browser views open validated local files; no public service is connected. Classical Trutine equations remain unresolved. See [PRIVATE_TESTING.md](PRIVATE_TESTING.md) for the exact implemented settings and separately labelled experimental RMS search; the broader pipeline below is still the target, not a claim that every stage is finished.
 
 ## Inputs
 Local birth date; earliest/latest local times; explicit IANA timezone; fold policy (reject/earlier/later); birth coordinates/altitude; uncertainty notes; explicit duration assumptions (days + hours and conception/LMP/custom convention); prenatal observer; optional known conception date; profile; tropical zodiac; house system. If latest time is earlier than earliest time, end is on the following date. Equal times are a point interval, not an implicit 24-hour interval.
 
-The frontend preserves assumptions, not derived epochs. An LMP interval must not be silently treated as a conception interval. Known conception dates versus duration-based epochs need an explicit precedence and intraday-time rule before engine implementation.
+The frontend preserves assumptions; local result files preserve derived epochs separately. LMP and known conception-date calculations are explicitly refused. Private custom/conception durations are elapsed UTC days/hours, not a historical gestation rule. Each duration assumption is a separate run with its index retained.
 
 ## Planned processing
 1. Validate civil inputs and supported date ranges. Resolve times with versioned IANA tzdb; reject nonexistent times; explicitly disambiguate repeated times. Check offset transitions across the complete interval, not only its endpoints.

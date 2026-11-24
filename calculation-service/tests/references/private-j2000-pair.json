@@ -1,0 +1,335 @@
+{
+  "format": "hermes-astronomy",
+  "version": 1,
+  "case_name": "J2000 regression inquiry",
+  "input_sha256": "7d891363f71c4d65f834195eab6dd90c6263d0349bd88b1f3411fccd7b3c2dd7",
+  "input_record": {
+    "id": "private-reference-case",
+    "createdAt": "2026-11-24T00:00:00Z",
+    "updatedAt": "2026-11-24T00:00:00Z",
+    "name": "J2000 regression inquiry",
+    "birthDate": "2000-01-01",
+    "earliestTime": "11:00",
+    "latestTime": "13:00",
+    "city": "London",
+    "country": "United Kingdom",
+    "latitude": 51.5,
+    "longitude": -0.12,
+    "altitude": 15,
+    "timezone": "Europe/London",
+    "ambiguity": "reject",
+    "uncertainty": "Technical regression input; not a person or rectification claim.",
+    "assumptions": [
+      {
+        "days": 273,
+        "hours": 6,
+        "convention": "custom"
+      }
+    ],
+    "sameLocation": true,
+    "prenatalCity": "London",
+    "prenatalLatitude": 51.5,
+    "prenatalLongitude": -0.12,
+    "prenatalAltitude": 15,
+    "conceptionDate": "",
+    "method": "modern",
+    "houseSystem": "P",
+    "notes": "Reference calculation only.",
+    "verification": "unverified"
+  },
+  "profile": "astronomy-geocentric",
+  "historical_status": "unresolved",
+  "assumption_index": 0,
+  "assumption": {
+    "days": 273,
+    "hours": 6,
+    "convention": "custom"
+  },
+  "civil": {
+    "local": "2000-01-01T12:00:00",
+    "timezone": "Europe/London",
+    "fold_policy": "reject",
+    "fold_applied": null,
+    "utc_offset_seconds": 0,
+    "timezone_file_sha256": "c85495070dca42687df6a1c3ee780a27cbcb82f1844750ea6f642833a44d29b4",
+    "tzdb_version": "# version 2026f",
+    "offset_transition_samples": []
+  },
+  "runtime": {
+    "python": "3.13.18",
+    "engine": "private-astronomy-1",
+    "source_sha256": {
+      "__init__.py": "99ddf5c79340e7a90574e58b6ba59d594f80481edf7e637cabd2e74c4d33a98f",
+      "angles.py": "54e5b764aa45e847ed80e3c8d3c186114612d0b1155b5ec063687d1e28263b99",
+      "civil_time.py": "7f3d9e49b2fd2a5827a93002c086a89469bbee59737bcf6fbb31dce0dbba3174",
+      "ephemeris.py": "64a838a5bf6c53eeaafcce31a303411e0cbc987f255bc90fc1964a2040b19858",
+      "main.py": "5d5a7bcc6b5c4e0f4c0768fb2b1f7967ef6328cb206e95aac5cb63be39d4c52b",
+      "prenatal.py": "25c4a9525bdb50fe92ebee71f98fc3e5564c977021c109295afd4d33f2f543e5",
+      "schemas.py": "40baf17f336026696f9b5598f936bcca203fcf3ede6d3b1453b2322e7525c8f7",
+      "search.py": "a98936c045f34f3a41cd24aa009c33c639d53c2236940b35e046e20343bece47",
+      "astronomy.py": "3321e1725d6947829092723578257e7fcf07ef508a0fe67ab83b4cc6186f3006",
+      "cli.py": "4719b27fe20f50ac9321afa0b09230a75df6f6ff7a7aa67214e1ad3d11a5ea66",
+      "local_case.py": "1a0e9ffead65eff325aed9749bb8874eab1cf7d231ff0630f6faf1799ef09da4",
+      "experimental.py": "4826fd4705abb2de9f5eab6c20c2acc0f762c7b6ffb2d57dfe01540e88df3944"
+    }
+  },
+  "natal": {
+    "utc": "2000-01-01T12:00:00+00:00",
+    "jd_ut": 2451545.0,
+    "jd_tt": 2451545.0007387605,
+    "delta_t_seconds": 63.82891493222457,
+    "observer": {
+      "latitude": 51.5,
+      "longitude": -0.12,
+      "altitude": 15
+    },
+    "topocentric": false,
+    "house_system": "P",
+    "points": [
+      {
+        "name": "Sun",
+        "longitude": 280.3689185203509,
+        "latitude": 0.00022739938424542946,
+        "distance_au": 0.9833276264461424,
+        "speed_deg_day": 1.0194340371879165,
+        "returned_flags": 258
+      },
+      {
+        "name": "Moon",
+        "longitude": 223.32375144634491,
+        "latitude": 5.170740538569509,
+        "distance_au": 0.002689989158678255,
+        "speed_deg_day": 12.021303767011412,
+        "returned_flags": 258
+      },
+      {
+        "name": "Mercury",
+        "longitude": 271.8892769179206,
+        "latitude": -0.9948285930570198,
+        "distance_au": 1.4154694499935345,
+        "speed_deg_day": 1.556258044437159,
+        "returned_flags": 258
+      },
+      {
+        "name": "Venus",
+        "longitude": 241.56578825658082,
+        "latitude": 2.066349097316708,
+        "distance_au": 1.1375792158604991,
+        "speed_deg_day": 1.2090429320830323,
+        "returned_flags": 258
+      },
+      {
+        "name": "Mars",
+        "longitude": 327.9633025155373,
+        "latitude": -1.0677853687772558,
+        "distance_au": 1.8496878402468409,
+        "speed_deg_day": 0.7756739514566737,
+        "returned_flags": 258
+      },
+      {
+        "name": "Jupiter",
+        "longitude": 25.253087151079686,
+        "latitude": -1.2621878978587815,
+        "distance_au": 4.621175076901631,
+        "speed_deg_day": 0.04076114907017503,
+        "returned_flags": 258
+      },
+      {
+        "name": "Saturn",
+        "longitude": 40.395663355893106,
+        "latitude": -2.444854678160392,
+        "distance_au": 8.652796322936094,
+        "speed_deg_day": -0.01994515504366362,
+        "returned_flags": 258
+      },
+      {
+        "name": "Uranus",
+        "longitude": 314.80918772110897,
+        "latitude": -0.6583348625212275,
+        "distance_au": 20.72717069828988,
+        "speed_deg_day": 0.05034346810467846,
+        "returned_flags": 258
+      },
+      {
+        "name": "Neptune",
+        "longitude": 303.19301322486706,
+        "latitude": 0.23499184345683097,
+        "distance_au": 31.02449767312721,
+        "speed_deg_day": 0.03557013405428875,
+        "returned_flags": 258
+      },
+      {
+        "name": "Pluto",
+        "longitude": 251.45477929621902,
+        "latitude": 10.855231704220895,
+        "distance_au": 31.064360997640062,
+        "speed_deg_day": 0.035152939203630426,
+        "returned_flags": 258
+      }
+    ],
+    "ascendant": 24.024664733469837,
+    "descendant": 204.02466473346985,
+    "mc": 279.500418364528,
+    "ic": 99.500418364528,
+    "cusps": [
+      24.024664733469837,
+      61.01596052940597,
+      81.91576692840712,
+      99.500418364528,
+      118.92475650890765,
+      147.50200356616682,
+      204.02466473346985,
+      241.01596052940596,
+      261.91576692840715,
+      279.500418364528,
+      298.92475650890765,
+      327.5020035661668
+    ],
+    "settings": {
+      "binding": "pyswisseph",
+      "binding_version": "2.10.3.2",
+      "core_version": "2.10.03",
+      "files": {
+        "sepl_18.se1": "9f057b316b1890a7f9340d0bf92db96edbab4939dbcc54762b62f6a70a059eb0",
+        "semo_18.se1": "1ca07bd67c24374d77226180c20a4f9996cba013697894810518e7eb582ca4f7"
+      },
+      "requested_flags": 258,
+      "zodiac": "tropical",
+      "coordinates": "apparent ecliptic of date",
+      "calendar": "Gregorian",
+      "ut_policy": "UTC used as UT1; no DUT1 correction (up to 0.9 seconds)",
+      "delta_t": "Swiss automatic model",
+      "calculated_at": "2026-11-24T23:39:56.122293+00:00"
+    }
+  },
+  "prenatal": {
+    "utc": "1999-04-03T06:00:00+00:00",
+    "jd_ut": 2451271.75,
+    "jd_tt": 2451271.75073577,
+    "delta_t_seconds": 63.57054133484791,
+    "observer": {
+      "latitude": 51.5,
+      "longitude": -0.12,
+      "altitude": 15
+    },
+    "topocentric": false,
+    "house_system": "P",
+    "points": [
+      {
+        "name": "Sun",
+        "longitude": 13.040097383783955,
+        "latitude": 0.00011436947955913097,
+        "distance_au": 0.9996848393105305,
+        "speed_deg_day": 0.9857298566250591,
+        "returned_flags": 258
+      },
+      {
+        "name": "Moon",
+        "longitude": 218.60331607243006,
+        "latitude": 4.97792476794284,
+        "distance_au": 0.0027030494448031872,
+        "speed_deg_day": 11.974226788044616,
+        "returned_flags": 258
+      },
+      {
+        "name": "Mercury",
+        "longitude": 350.90577047250287,
+        "latitude": 0.06538935879019564,
+        "distance_au": 0.6777356223264154,
+        "speed_deg_day": 0.07915401661303863,
+        "returned_flags": 258
+      },
+      {
+        "name": "Venus",
+        "longitude": 49.0030967110322,
+        "latitude": 0.9094706879032607,
+        "distance_au": 1.2239270772881121,
+        "speed_deg_day": 1.1891183046707958,
+        "returned_flags": 258
+      },
+      {
+        "name": "Mars",
+        "longitude": 220.65670743663085,
+        "latitude": 1.9601539023007284,
+        "distance_au": 0.6575590585402751,
+        "speed_deg_day": -0.1975743956883248,
+        "returned_flags": 258
+      },
+      {
+        "name": "Jupiter",
+        "longitude": 11.556726178908125,
+        "latitude": -1.0855436499339948,
+        "distance_au": 5.950190856555883,
+        "speed_deg_day": 0.24195339786700112,
+        "returned_flags": 258
+      },
+      {
+        "name": "Saturn",
+        "longitude": 33.70071224813534,
+        "latitude": -2.2071187503906713,
+        "distance_au": 10.174606978461396,
+        "speed_deg_day": 0.12242311300566805,
+        "returned_flags": 258
+      },
+      {
+        "name": "Uranus",
+        "longitude": 315.84338608977436,
+        "latitude": -0.6481419666267606,
+        "distance_au": 20.41989660287936,
+        "speed_deg_day": 0.03753446466700731,
+        "returned_flags": 258
+      },
+      {
+        "name": "Neptune",
+        "longitude": 304.0584654705781,
+        "latitude": 0.28846180272718586,
+        "distance_au": 30.474163914133555,
+        "speed_deg_day": 0.018099403838086007,
+        "returned_flags": 258
+      },
+      {
+        "name": "Pluto",
+        "longitude": 250.38116003116517,
+        "latitude": 11.776591385672194,
+        "distance_au": 29.60543979106258,
+        "speed_deg_day": -0.011109042379933735,
+        "returned_flags": 258
+      }
+    ],
+    "ascendant": 25.489424039145817,
+    "descendant": 205.48942403914583,
+    "mc": 280.1206716136885,
+    "ic": 100.1206716136885,
+    "cusps": [
+      25.489424039145817,
+      61.83023016554179,
+      82.55497383548092,
+      100.1206716136885,
+      119.64670325282759,
+      148.54346442602304,
+      205.48942403914583,
+      241.8302301655418,
+      262.55497383548095,
+      280.1206716136885,
+      299.6467032528276,
+      328.54346442602304
+    ],
+    "settings": {
+      "binding": "pyswisseph",
+      "binding_version": "2.10.3.2",
+      "core_version": "2.10.03",
+      "files": {
+        "sepl_18.se1": "9f057b316b1890a7f9340d0bf92db96edbab4939dbcc54762b62f6a70a059eb0",
+        "semo_18.se1": "1ca07bd67c24374d77226180c20a4f9996cba013697894810518e7eb582ca4f7"
+      },
+      "requested_flags": 258,
+      "zodiac": "tropical",
+      "coordinates": "apparent ecliptic of date",
+      "calendar": "Gregorian",
+      "ut_policy": "UTC used as UT1; no DUT1 correction (up to 0.9 seconds)",
+      "delta_t": "Swiss automatic model",
+      "calculated_at": "2026-11-24T23:39:56.127916+00:00"
+    }
+  },
+  "candidates": []
+}

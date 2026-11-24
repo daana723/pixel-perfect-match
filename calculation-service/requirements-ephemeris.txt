@@ -1,2 +1,2 @@
-# Install ONLY after the Swiss Ephemeris licence decision. Not used by the Docker image.
+# Approved for private local AGPL testing only. Not used by the Docker image.
 pyswisseph==2.10.3.2

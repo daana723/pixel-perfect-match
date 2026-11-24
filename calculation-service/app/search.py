@@ -2,11 +2,8 @@
 residual functions. Keeps every orientation separate; reports minima of a declared objective,
 never claims simultaneous roots or probabilities."""
 from dataclasses import dataclass
-from typing import Callable, Protocol
-
-class EphemerisPort(Protocol):
-    def moon_longitude(self, jd_ut: float) -> float: ...
-    def ascendant(self, jd_ut: float, lat: float, lon: float) -> float: ...
+import math
+from typing import Callable
 
 Objective = Callable[[float], float]
 
@@ -17,7 +14,7 @@ class Minimum:
     objective: float
 
 def scan_minima(f: Objective, start: float, end: float, step: float, tol: float = 1e-7) -> list[tuple[float, float]]:
-    if end < start or step <= 0:
+    if not all(math.isfinite(v) for v in (start, end, step, tol)) or end < start or step <= 0 or tol <= 0 or (end - start) / step > 10000:
         raise ValueError("Invalid scan interval.")
     if end == start:
         return [(start, f(start))]
@@ -32,8 +29,10 @@ def scan_minima(f: Objective, start: float, end: float, step: float, tol: float 
         right = ys[i + 1] if i < len(xs) - 1 else float("inf")
         if ys[i] <= left and ys[i] <= right:
             a, b = xs[max(i - 1, 0)], xs[min(i + 1, len(xs) - 1)]
-            out.append(_golden(f, a, b, tol))
-    return _dedupe(out, step / 2)
+            refined = _golden(f, a, b, tol)
+            # Keep a true boundary minimum instead of nudging it into the interval.
+            out.append(min([refined, (xs[i], ys[i])], key=lambda pair: pair[1]))
+    return _dedupe(out, tol * 2)
 
 def _golden(f, a, b, tol):
     g = (5 ** 0.5 - 1) / 2

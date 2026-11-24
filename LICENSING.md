@@ -21,16 +21,16 @@ The Python `pyswisseph` binding and any ephemeris data files have their own appl
 No license choice for proprietary commercial distribution is made by this scaffold. No ephemeris data files are included. This document is not legal advice.
 
 ## Decision status
-Undecided. The project is **neither AGPL nor proprietary** until the owner decides explicitly.
+Private development/testing with **pyswisseph 2.10.3.2 under AGPL-3.0 terms** is explicitly approved (2026-11-24), subject to the applicable conditions. This is not an application-wide public licence selection or distribution approval. No Professional Licence was purchased; public/external testing stays off.
 
 ## Implications if AGPL is chosen
 - The AGPL network clause applies: users interacting with the service over a network must be offered its corresponding source.
 - If the frontend and service form one combined work, the obligations may extend to the whole project; whether separation is sufficient needs legal advice.
-- Any modifications to Swiss Ephemeris or the service must be published under AGPL-compatible terms.
+- When disclosure obligations are triggered, provide the required corresponding source under AGPL-compatible terms; private modification alone does not mean universal publication to everyone. Astrodienst's notice expressly describes a whole-project AGPL/compatible requirement, so separation must not be assumed sufficient.
 
 ## Implications if the Professional Licence is chosen
 - Closed-source and commercial distribution become possible under the agreement's scope.
 - Fee and scope are set by Astrodienst; the agreement must be in hand before public activation.
 
-## Until decided
-Ephemeris access stays behind `SwissEphemerisAdapter`; the service is not publicly activated or distributed with Swiss Ephemeris enabled.
+## Current permitted boundary
+Ephemeris access stays behind `SwissEphemerisAdapter` and runs only in an offline local CLI. No HTTP astronomical endpoint is enabled, no ephemeris data files are committed, no external testers are invited, and no public service is activated. Binding AGPL text and the bundled Swiss notice are preserved under `calculation-service/notices/`. See [PRIVATE_TESTING.md](PRIVATE_TESTING.md) for versions, file hashes, declared dependency licences and review gates. A private repository is not a substitute for a required corresponding-source offer.

@@ -2,7 +2,7 @@
 
 Ancient astrological methodology. Transparent astronomical calculations.
 
-A local-first research workspace for professional astrologers investigating birth-time rectification. **This delivery implements Stage 1 and the Stage 2 service scaffold only. It does not generate astronomical results or claim astronomical validation.**
+A local-first research workspace for professional astrologers investigating birth-time rectification. **Real Swiss Ephemeris astronomy now runs privately through an offline CLI. Classical Trutine rules remain unresolved; no public astronomical service is active.**
 
 ## Stage 1 delivered
 - Midnight navy / antique gold dashboard with real local case counts and explicit unavailable result states.
@@ -14,12 +14,12 @@ A local-first research workspace for professional astrologers investigating birt
 - IndexedDB case create/edit/duplicate/delete; persistence across reloads; versioned JSON export/import and CSV export. Imports receive new IDs and do not overwrite cases.
 - No accounts, network case transmission or cloud synchronization.
 
-Candidate Explorer and Chart Comparison are readiness views, not completed result tools. No candidates, residual curves, chart positions or traces are simulated.
+Candidate Explorer and Chart Comparison open real local calculation JSON: planets, axes, cusps, overlays and explicitly experimental RMS minima/traces. Without a file, wheels remain empty. See PRIVATE_TESTING.md for setup, commands and limitations.
 
 ## Stage 2 scaffold delivered
-`calculation-service/` contains independent FastAPI endpoints, Pydantic inputs/response models, a fail-closed service-token boundary, an isolated Swiss Ephemeris adapter, a Dockerfile and scaffold tests. The adapter reports binding availability and deliberately refuses numerical calls. Protected calculation endpoints return 503. Health availability does not mean calculation readiness.
+`calculation-service/` contains independent FastAPI endpoints, Pydantic inputs/response models, a fail-closed service-token boundary, an isolated Swiss Ephemeris adapter, a Dockerfile and scaffold tests. The isolated adapter now performs real offline numerical calls; the HTTP scaffold does not. Protected calculation endpoints return 503. Health availability does not mean calculation readiness.
 
-The Python service is **not hosted by Lovable** and is not connected to the web app. Lovable's web runtime cannot execute Python native bindings. Deploy it separately to a compatible container provider after completing Stage 2.
+The Python service is **not hosted by Lovable** and is not connected to the web app. Lovable's web runtime cannot execute Python native bindings. Current testing is local-only: do not deploy or invite external testers before licensing/source-disclosure review.
 
 ## Development
 ```sh
@@ -29,14 +29,14 @@ bunx vitest run
 ```
 The preview development server is managed by Lovable. Frontend source is React / TypeScript / TanStack Start / Tailwind v4.
 
-Python scaffold:
+Private Python astronomy:
 ```sh
 python3 -m venv .venv
 . .venv/bin/activate
-pip install -r calculation-service/requirements-dev.txt
-PYTHONPATH=calculation-service pytest calculation-service/tests
-# Runs scaffold only; does not enable calculations:
-uvicorn app.main:app --app-dir calculation-service --port 8000 --no-access-log
+pip install -r calculation-service/requirements-private.lock.txt
+python3 calculation-service/prepare_ephemeris.py --destination /private/ephemeris
+EPHEMERIS_PATH=/private/ephemeris PYTHONPATH=calculation-service python3 -m pytest calculation-service/tests
+# No listener, token or account needed; see PRIVATE_TESTING.md for the CLI.
 ```
 
 ## File guide
@@ -51,13 +51,13 @@ uvicorn app.main:app --app-dir calculation-service --port 8000 --no-access-log
 
 ## Outstanding requirements
 1. Choose and approve the classical historical source and exact rule variants. The user elected to select a source later; classical calculations remain unavailable.
-2. Complete Swiss Ephemeris file provisioning, verify requested flags, avoid silent Moshier fallback, record file hashes/version, and resolve licensing.
-3. Implement historical timezone conversion (folds/gaps, midnight, DST), UTC/Julian Day handling and prenatal epoch conventions.
-4. Implement classical and separately specified experimental topocentric engines, traces and reproducibility manifests.
-5. Durable background jobs, all four orientation searches, coarse/fine scans, appropriate root-finding, minima detection and candidate deduplication.
-6. Calculated SVG chart wheels, cusps, exact degrees, synchronized switching, zoom, tooltips and overlays.
+2. Public licensing/source-disclosure review. Private pinned-file astronomy and no-fallback checks are implemented; no Professional Licence purchase is approved.
+3. Broader calendar/timezone precision checks. Civil folds/gaps, UTC/JD, explicit custom/conception durations are implemented; LMP and known-conception policies remain unresolved.
+4. Classical equations and historical validation. Experimental topocentric fixed-duration RMS searching remains separately labelled.
+5. Durable jobs, exhaustive-search analysis and any approved root-finding; current offline minima/refinement/deduplication keeps all four orientations per assumption run.
+6. Further chart ergonomics such as zoom. Real planets/cusps/axes, exact tables, glyph tooltips, overlays and candidate selection are implemented.
 7. Deploy Python service with HTTPS, resource/rate limits, data-retention controls and secure authenticated bridge. Never put service credentials in browser code. The frontend does not call the scaffold.
 8. Optional explicitly activated cloud accounts and synchronization, private access policies, conflict handling. Decide profile-data needs before implementing authentication.
 9. Independent astronomical reference charts, full regression and security suites, Docker image/deployment verification.
 
-See [API_DOCUMENTATION.md](API_DOCUMENTATION.md) for deployment instructions and [VALIDATION_PROTOCOL.md](VALIDATION_PROTOCOL.md) for precise validation boundaries. No ephemeris data files or historical reference values are bundled.
+See [API_DOCUMENTATION.md](API_DOCUMENTATION.md) for deployment instructions and [VALIDATION_PROTOCOL.md](VALIDATION_PROTOCOL.md) for precise validation boundaries. No ephemeris binaries or historical rule values are bundled. Documented JPL/native-Swiss astronomical outputs are retained in tests. See PRIVATE_TESTING.md for the approved local workflow.

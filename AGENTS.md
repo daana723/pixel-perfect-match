@@ -35,3 +35,6 @@ use the editor.
 - Validate saved and imported case records with the shared Zod schema; imports create new IDs instead of overwriting existing cases.
 - Keep the independent Python service under `calculation-service/`, outside the frontend import graph; isolate native Swiss Ephemeris access in its adapter.
 - Return explicit unavailable states for unfinished calculation engines; never seed simulated astronomical results.
+- Keep real astronomy in an offline Python CLI and exchange validated local JSON with the browser; no HTTP calculation endpoint or Cloud bridge is active, preserving the private testing boundary.
+- Use the ephemeris port for civil-chart and experimental-search orchestration; isolate native flags, files and mutable settings in the adapter so a binding replacement does not change consumers.
+- Keep calculation imports in a session-scoped results provider and validate them against the result schema; navigation retains selections without persisting or transmitting private results.

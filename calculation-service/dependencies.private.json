@@ -1,0 +1,224 @@
+{
+  "python_tested": "3.13.18",
+  "packages": [
+    {
+      "name": "annotated-types",
+      "version": "0.8.0",
+      "license_metadata": "MIT",
+      "requires": []
+    },
+    {
+      "name": "anyio",
+      "version": "4.16.0",
+      "license_metadata": "MIT",
+      "requires": [
+        "exceptiongroup>=1.0.2; python_version < \"3.11\"",
+        "idna>=2.8",
+        "typing_extensions>=4.16.0; python_version < \"3.15\"",
+        "trio>=0.32.0; extra == \"trio\""
+      ]
+    },
+    {
+      "name": "certifi",
+      "version": "2026.10.19",
+      "license_metadata": "MPL-2.0",
+      "requires": []
+    },
+    {
+      "name": "click",
+      "version": "8.3.1",
+      "license_metadata": "BSD-3-Clause",
+      "requires": [
+        "colorama; platform_system == 'Windows'"
+      ]
+    },
+    {
+      "name": "fastapi",
+      "version": "0.115.12",
+      "license_metadata": "License :: OSI Approved :: MIT License",
+      "requires": [
+        "starlette<0.47.0,>=0.40.0",
+        "pydantic!=1.8,!=1.8.1,!=2.0.0,!=2.0.1,!=2.1.0,<3.0.0,>=1.7.4",
+        "typing-extensions>=4.8.0",
+        "fastapi-cli[standard]>=0.0.5; extra == \"standard\"",
+        "httpx>=0.23.0; extra == \"standard\"",
+        "jinja2>=3.1.5; extra == \"standard\"",
+        "python-multipart>=0.0.18; extra == \"standard\"",
+        "email-validator>=2.0.0; extra == \"standard\"",
+        "uvicorn[standard]>=0.12.0; extra == \"standard\"",
+        "fastapi-cli[standard]>=0.0.5; extra == \"all\"",
+        "httpx>=0.23.0; extra == \"all\"",
+        "jinja2>=3.1.5; extra == \"all\"",
+        "python-multipart>=0.0.18; extra == \"all\"",
+        "itsdangerous>=1.1.0; extra == \"all\"",
+        "pyyaml>=5.3.1; extra == \"all\"",
+        "ujson!=4.0.2,!=4.1.0,!=4.2.0,!=4.3.0,!=5.0.0,!=5.1.0,>=4.0.1; extra == \"all\"",
+        "orjson>=3.2.1; extra == \"all\"",
+        "email-validator>=2.0.0; extra == \"all\"",
+        "uvicorn[standard]>=0.12.0; extra == \"all\"",
+        "pydantic-settings>=2.0.0; extra == \"all\"",
+        "pydantic-extra-types>=2.0.0; extra == \"all\""
+      ]
+    },
+    {
+      "name": "h11",
+      "version": "0.16.0",
+      "license_metadata": "MIT",
+      "requires": []
+    },
+    {
+      "name": "httpcore",
+      "version": "1.0.9",
+      "license_metadata": "BSD-3-Clause",
+      "requires": [
+        "certifi",
+        "h11>=0.16",
+        "anyio<5.0,>=4.0; extra == 'asyncio'",
+        "h2<5,>=3; extra == 'http2'",
+        "socksio==1.*; extra == 'socks'",
+        "trio<1.0,>=0.22.0; extra == 'trio'"
+      ]
+    },
+    {
+      "name": "httpx",
+      "version": "0.28.1",
+      "license_metadata": "BSD-3-Clause",
+      "requires": [
+        "anyio",
+        "certifi",
+        "httpcore==1.*",
+        "idna",
+        "brotli; (platform_python_implementation == 'CPython') and extra == 'brotli'",
+        "brotlicffi; (platform_python_implementation != 'CPython') and extra == 'brotli'",
+        "click==8.*; extra == 'cli'",
+        "pygments==2.*; extra == 'cli'",
+        "rich<14,>=10; extra == 'cli'",
+        "h2<5,>=3; extra == 'http2'",
+        "socksio==1.*; extra == 'socks'",
+        "zstandard>=0.18.0; extra == 'zstd'"
+      ]
+    },
+    {
+      "name": "idna",
+      "version": "3.11",
+      "license_metadata": "BSD-3-Clause",
+      "requires": [
+        "ruff >= 0.6.2 ; extra == \"all\"",
+        "mypy >= 1.11.2 ; extra == \"all\"",
+        "pytest >= 8.3.2 ; extra == \"all\"",
+        "flake8 >= 7.1.1 ; extra == \"all\""
+      ]
+    },
+    {
+      "name": "iniconfig",
+      "version": "2.3.1",
+      "license_metadata": "MIT",
+      "requires": []
+    },
+    {
+      "name": "packaging",
+      "version": "26.0",
+      "license_metadata": "Apache-2.0 OR BSD-2-Clause",
+      "requires": []
+    },
+    {
+      "name": "pluggy",
+      "version": "1.7.0",
+      "license_metadata": "MIT",
+      "requires": []
+    },
+    {
+      "name": "pydantic",
+      "version": "2.11.4",
+      "license_metadata": "MIT",
+      "requires": [
+        "annotated-types>=0.6.0",
+        "pydantic-core==2.33.2",
+        "typing-extensions>=4.12.2",
+        "typing-inspection>=0.4.0",
+        "email-validator>=2.0.0; extra == 'email'",
+        "tzdata; (python_version >= '3.9' and platform_system == 'Windows') and extra == 'timezone'"
+      ]
+    },
+    {
+      "name": "pydantic_core",
+      "version": "2.33.2",
+      "license_metadata": "MIT",
+      "requires": [
+        "typing-extensions>=4.6.0,!=4.7.0"
+      ]
+    },
+    {
+      "name": "pyswisseph",
+      "version": "2.10.3.2",
+      "license_metadata": "License :: OSI Approved :: GNU Affero General Public License v3",
+      "requires": []
+    },
+    {
+      "name": "pytest",
+      "version": "8.3.5",
+      "license_metadata": "MIT",
+      "requires": [
+        "colorama; sys_platform == \"win32\"",
+        "exceptiongroup>=1.0.0rc8; python_version < \"3.11\"",
+        "iniconfig",
+        "packaging",
+        "pluggy<2,>=1.5",
+        "tomli>=1; python_version < \"3.11\"",
+        "argcomplete; extra == \"dev\"",
+        "attrs>=19.2; extra == \"dev\"",
+        "hypothesis>=3.56; extra == \"dev\"",
+        "mock; extra == \"dev\"",
+        "pygments>=2.7.2; extra == \"dev\"",
+        "requests; extra == \"dev\"",
+        "setuptools; extra == \"dev\"",
+        "xmlschema; extra == \"dev\""
+      ]
+    },
+    {
+      "name": "starlette",
+      "version": "0.46.2",
+      "license_metadata": "BSD-3-Clause",
+      "requires": [
+        "anyio<5,>=3.6.2",
+        "typing-extensions>=3.10.0; python_version < '3.10'",
+        "httpx<0.29.0,>=0.27.0; extra == 'full'",
+        "itsdangerous; extra == 'full'",
+        "jinja2; extra == 'full'",
+        "python-multipart>=0.0.18; extra == 'full'",
+        "pyyaml; extra == 'full'"
+      ]
+    },
+    {
+      "name": "typing-inspection",
+      "version": "0.4.5",
+      "license_metadata": "MIT",
+      "requires": [
+        "typing-extensions>=4.15.0"
+      ]
+    },
+    {
+      "name": "typing_extensions",
+      "version": "4.16.0",
+      "license_metadata": "PSF-2.0",
+      "requires": []
+    },
+    {
+      "name": "uvicorn",
+      "version": "0.34.2",
+      "license_metadata": "BSD-3-Clause",
+      "requires": [
+        "click>=7.0",
+        "h11>=0.8",
+        "typing-extensions>=4.0; python_version < '3.11'",
+        "colorama>=0.4; (sys_platform == 'win32') and extra == 'standard'",
+        "httptools>=0.6.3; extra == 'standard'",
+        "python-dotenv>=0.13; extra == 'standard'",
+        "pyyaml>=5.1; extra == 'standard'",
+        "uvloop!=0.15.0,!=0.15.1,>=0.14.0; (sys_platform != 'win32' and (sys_platform != 'cygwin' and platform_python_implementation != 'PyPy')) and extra == 'standard'",
+        "watchfiles>=0.13; extra == 'standard'",
+        "websockets>=10.4; extra == 'standard'"
+      ]
+    }
+  ]
+}

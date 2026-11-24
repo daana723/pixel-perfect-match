@@ -1,6 +1,6 @@
 # Python API and deployment scaffold
 
-Base path `/api/v1`. Run the independent service with `uvicorn app.main:app --app-dir calculation-service --no-access-log`. OpenAPI schema is at `/openapi.json`; interactive API documentation at `/docs` on the **Python host**, not the web app.
+Base path `/api/v1`. **Do not deploy or enable this HTTP scaffold.** Real private astronomy runs through the offline CLI described in [PRIVATE_TESTING.md](PRIVATE_TESTING.md), not through these endpoints. `/openapi.json`, `/docs` and `/redoc` are disabled. No listener is needed for private testing.
 
 ## Current endpoints
 | Method | Path | Current behavior |
@@ -17,7 +17,7 @@ Protected endpoints require `Authorization: Bearer <private service token>`. Con
 ## Rectification request fields
 `birth` contains `birth_date`, `earliest_local_time`, `latest_local_time`, `timezone`, `observer` and `ambiguous_time_policy`. An observer contains `latitude`, `longitude`, `altitude`. `prenatal_assumptions` contains explicit `days`, optional additional `hours`, and `convention` (`conception`, `lmp`, `custom`). `prenatal_observer` and `profile` (`classical`, `modern`, `comparison`) are required; `known_conception_date` is optional. Field validation errors are 422 with structured field locations. No body is processed astronomically or retained.
 
-Position inputs are `julian_day_ut`, `observer`, `topocentric`, optional `house_system` (`P`, `E`, `W`, `R`). This is a planned contract, not a validated numerical service.
+Position inputs are `julian_day_ut`, `observer`, `topocentric`, optional `house_system` (`P`, `E`, `W`, `R`). The HTTP contract stays unavailable even though the isolated offline adapter now performs these calculations.
 
 ## Unavailable response
 ```json

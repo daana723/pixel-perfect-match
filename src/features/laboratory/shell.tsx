@@ -3,6 +3,7 @@ import { LayoutDashboard, CirclePlus, FolderOpen, ListFilter, Orbit, BookOpen, S
 import { useState, type ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { CaseProvider } from './case-provider';
+import { ResultsProvider } from './results-provider';
 const navigation = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard },
   { to: '/new-rectification', label: 'New Rectification', icon: CirclePlus },
@@ -16,7 +17,7 @@ export function LaboratoryShell({ children }: { children: ReactNode }) {
   const path = useRouterState({ select: state => state.location.pathname });
   const [open, setOpen] = useState(false);
   const current = navigation.find(n => n.to === path)?.label ?? 'Laboratory';
-  return <CaseProvider><div className="laboratory">
+  return <CaseProvider><ResultsProvider><div className="laboratory">
     {open && <div className="sidebar-scrim" onClick={() => setOpen(false)} />}
     <aside className={`sidebar ${open ? 'sidebar-open' : ''}`}>
       <Link to="/" className="brand" onClick={() => setOpen(false)}><span className="brand-mark">☿</span><span><strong>HERMES</strong><span>TRUTINE LABORATORY</span></span></Link>
@@ -27,5 +28,5 @@ export function LaboratoryShell({ children }: { children: ReactNode }) {
     </aside>
     <div className="workspace"><header className="topbar"><div className="breadcrumb"><Button variant="ghost" size="icon" className="mobile-menu" aria-label="Open navigation" onClick={() => setOpen(true)}><Menu /></Button><span>Workspace</span><span className="breadcrumb-slash">/</span><strong>{current}</strong></div><div className="topbar-actions"><span className="local-status"><span />Local workspace</span><Button asChild variant="ghost" size="sm"><Link to="/methodology">Research notes <ArrowUpRight /></Link></Button><span className="workspace-avatar" title="Private local workspace">H</span></div></header>
     <main className="main-content">{children}</main><footer className="workspace-footer"><span>Hermes Trutine Laboratory <span className="footer-dot">·</span> Ancient methodology. Transparent calculations.</span><span><ShieldCheck size={13} /> No account required</span></footer></div>
-  </div></CaseProvider>;
+  </div></ResultsProvider></CaseProvider>;
 }
