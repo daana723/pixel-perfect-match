@@ -12,6 +12,8 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { LaboratoryShell } from "@/features/laboratory/shell";
+import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
   return (
@@ -81,16 +83,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Hermes Trutine Laboratory" },
+      { name: "description", content: "Ancient astrological methodology. Transparent astronomical calculations." },
+      { name: "author", content: "Hermes Trutine Laboratory" },
+      { property: "og:title", content: "Hermes Trutine Laboratory" },
+      { property: "og:description", content: "A private workspace for professional Trutine of Hermes research." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;450;500;550;600;650;700&display=swap" },
       {
         rel: "stylesheet",
         href: appCss,
@@ -124,7 +126,8 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <LaboratoryShell><Outlet /></LaboratoryShell>
+      <Toaster position="bottom-right" />
     </QueryClientProvider>
   );
 }

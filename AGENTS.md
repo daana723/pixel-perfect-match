@@ -28,3 +28,10 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Application architecture
+- Keep separate TanStack content routes within the shared laboratory shell so each navigation view has an address and its own metadata.
+- Access Dexie only after hydration or in user event handlers; local case data must not enter SSR or network requests.
+- Validate saved and imported case records with the shared Zod schema; imports create new IDs instead of overwriting existing cases.
+- Keep the independent Python service under `calculation-service/`, outside the frontend import graph; isolate native Swiss Ephemeris access in its adapter.
+- Return explicit unavailable states for unfinished calculation engines; never seed simulated astronomical results.
