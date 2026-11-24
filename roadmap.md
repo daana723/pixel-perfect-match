@@ -25,3 +25,7 @@
 - [x] Civil time → UTC (gap/fold handling, offset transitions), Julian Day UT, explicit prenatal windows, orientation-separated minimum search — ephemeris-independent, tested.
 - [ ] Moon/Ascendant positions. Blocked by licence route and ephemeris files.
 - [ ] Classical equations. Blocked by exact source passages.
+## Product direction (2026-11-24)
+- [x] PRODUCT_ROADMAP.md: tiers, future auth/entitlement/payment architecture.
+- [ ] Repository visibility: owner to set GitHub repo private (recommended).
+- [ ] Licence choice (Professional preferred, AGPL fallback) — awaiting Astrodienst reply.
