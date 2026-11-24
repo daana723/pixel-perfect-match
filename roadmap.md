@@ -21,3 +21,7 @@
 - [x] Report: COMMERCIAL_PLAN.md.
 - [ ] Written confirmation from Astrodienst (user to send questions).
 - [ ] Payments: deferred until engine validated.
+## Calculation engine (started, no subscriptions)
+- [x] Civil time → UTC (gap/fold handling, offset transitions), Julian Day UT, explicit prenatal windows, orientation-separated minimum search — ephemeris-independent, tested.
+- [ ] Moon/Ascendant positions. Blocked by licence route and ephemeris files.
+- [ ] Classical equations. Blocked by exact source passages.
