@@ -60,6 +60,7 @@ class HealthResponse(BaseModel):
     status: str
     version: str
     calculation_ready: bool
+    swiss_ephemeris_enabled: bool
     ephemeris_binding_version: str | None
 
 class MethodDescriptor(BaseModel):

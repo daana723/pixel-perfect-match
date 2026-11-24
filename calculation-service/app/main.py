@@ -7,11 +7,15 @@ import hmac
 import os
 from uuid import UUID
 from fastapi import Depends, FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from .ephemeris import SwissEphemerisAdapter
 from .schemas import ErrorResponse, HealthResponse, MethodDescriptor, PositionsRequest, RectificationRequest
 
 app = FastAPI(title="Hermes Trutine Calculation Service", version="0.1.0")
+origins = [o.strip() for o in os.environ.get("ALLOWED_ORIGINS", "").split(",") if o.strip()]
+if origins:
+    app.add_middleware(CORSMiddleware, allow_origins=origins, allow_methods=["GET", "POST"], allow_headers=["Authorization", "Content-Type"])
 bearer = HTTPBearer(auto_error=False)
 ORIENTATIONS = ["ASC / ASC", "ASC / DSC", "DSC / ASC", "DSC / DSC"]
 
@@ -29,7 +33,7 @@ def unavailable():
 
 @app.get("/api/v1/health", response_model=HealthResponse)
 def health():
-    return HealthResponse(status="scaffold", version="0.1.0", calculation_ready=False, ephemeris_binding_version=SwissEphemerisAdapter.binding_version())
+    return HealthResponse(status="scaffold", version="0.1.0", calculation_ready=False, swiss_ephemeris_enabled=False, ephemeris_binding_version=SwissEphemerisAdapter.binding_version())
 
 
 @app.get("/api/v1/methods", response_model=list[MethodDescriptor])

@@ -19,3 +19,18 @@ The Python `pyswisseph` binding and any ephemeris data files have their own appl
 - [ ] Review fonts and frontend dependency licenses.
 
 No license choice for proprietary commercial distribution is made by this scaffold. No ephemeris data files are included. This document is not legal advice.
+
+## Decision status
+Undecided. The project is **neither AGPL nor proprietary** until the owner decides explicitly.
+
+## Implications if AGPL is chosen
+- The AGPL network clause applies: users interacting with the service over a network must be offered its corresponding source.
+- If the frontend and service form one combined work, the obligations may extend to the whole project; whether separation is sufficient needs legal advice.
+- Any modifications to Swiss Ephemeris or the service must be published under AGPL-compatible terms.
+
+## Implications if the Professional Licence is chosen
+- Closed-source and commercial distribution become possible under the agreement's scope.
+- Fee and scope are set by Astrodienst; the agreement must be in hand before public activation.
+
+## Until decided
+Ephemeris access stays behind `SwissEphemerisAdapter`; the service is not publicly activated or distributed with Swiss Ephemeris enabled.

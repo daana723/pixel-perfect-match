@@ -7,10 +7,12 @@
 - [x] Run available frontend and Python scaffold tests; verify real local case workflow on desktop and mobile.
 
 ## Later stages (not part of this delivery)
-- [ ] Stage 2 completion: deploy Python service, licensed ephemeris files, secure service bridge, job infrastructure.
-- [ ] Stage 3: source-approved classical equations and independent reference validation. Blocked by historical source selection.
+- [x] Render deployment config, CORS, health check, deployment guide.
+- [ ] Stage 2 completion: activate on Render, ephemeris files, secure bridge, jobs. Blocked by licence decision.
+- [ ] Stage 3: source-approved classical equations and independent reference validation. Source framework written (SOURCES.md); blocked by exact editions/passages.
 - [ ] Stage 4: experimental topocentric profile.
 - [ ] Stage 5: all-orientation candidate search, traces, comparison and ranking.
-- [ ] Stage 6: calculated natal/prenatal chart wheels and overlay.
+- [x] Stage 6 scaffold: chart wheel frame (shows no data until calculated).
+- [ ] Stage 6: populated wheels. Blocked by ephemeris.
 - [ ] Stage 7: explicit opt-in cloud sync and authentication.
 - [ ] Stage 8: astronomical regression suite, security and deployment verification.

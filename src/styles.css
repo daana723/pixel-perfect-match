@@ -239,3 +239,13 @@
   .sidebar { visibility: hidden; }
   .sidebar-open { visibility: visible; }
 }
+
+.chart-wheel { margin: 0 auto; max-width: 18rem; text-align: center; }
+.chart-wheel svg { width: 100%; height: auto; }
+.chart-wheel figcaption { font-size: .75rem; color: var(--muted-foreground); margin-top: .5rem; }
+.wheel-ring { fill: none; stroke: var(--border); stroke-width: .6; }
+.wheel-line { stroke: var(--border); stroke-width: .5; }
+.wheel-axis { stroke: var(--primary); stroke-width: 1; }
+.wheel-sign { fill: var(--muted-foreground); font-size: 8px; }
+.wheel-point { fill: var(--foreground); font-size: 7px; }
+.wheel-empty { fill: var(--muted-foreground); font-size: 7px; letter-spacing: .1em; text-transform: uppercase; }
