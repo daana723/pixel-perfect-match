@@ -12,7 +12,7 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from .ephemeris import SwissEphemerisAdapter
 from .schemas import ErrorResponse, HealthResponse, MethodDescriptor, PositionsRequest, RectificationRequest
 
-app = FastAPI(title="Hermes Trutine Calculation Service", version="0.1.0")
+app = FastAPI(title="Hermes Trutine Calculation Service", version="0.1.0", docs_url=None, redoc_url=None, openapi_url=None)
 origins = [o.strip() for o in os.environ.get("ALLOWED_ORIGINS", "").split(",") if o.strip()]
 if origins:
     app.add_middleware(CORSMiddleware, allow_origins=origins, allow_methods=["GET", "POST"], allow_headers=["Authorization", "Content-Type"])
