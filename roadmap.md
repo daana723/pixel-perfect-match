@@ -18,5 +18,6 @@
 - [ ] Stage 8: astronomical regression suite, security and deployment verification.
 ## Commercial planning (current)
 - [x] Production Render config (Starter, not applied).
-- [ ] Report: pyswisseph vs direct C binding, licence risk for SaaS, Render vs Railway costs, provider-neutral architecture.
+- [x] Report: COMMERCIAL_PLAN.md.
+- [ ] Written confirmation from Astrodienst (user to send questions).
 - [ ] Payments: deferred until engine validated.
