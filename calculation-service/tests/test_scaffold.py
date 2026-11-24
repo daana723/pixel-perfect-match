@@ -12,6 +12,7 @@ def request():
 @pytest.fixture
 def protected(monkeypatch):
     monkeypatch.setenv("CALCULATION_SERVICE_TOKEN", "local-test-token")
+    monkeypatch.setenv("SERVICE_ENABLED", "true")
     return {"Authorization": "Bearer local-test-token"}
 
 def test_health_never_claims_calculation_readiness():
@@ -57,3 +58,11 @@ def test_remaining_endpoints_report_unavailable(protected):
     assert client.post(f"/api/v1/rectifications/{job}/recalculate", json=request(), headers=protected).status_code == 503
     response = client.post("/api/v1/ephemeris/positions", headers=protected, json={"julian_day_ut": 2451545.0, "observer": {"latitude": 0, "longitude": 0}, "topocentric": False})
     assert response.status_code == 503
+
+
+def test_service_disabled_by_default(monkeypatch):
+    monkeypatch.delenv("SERVICE_ENABLED", raising=False)
+    monkeypatch.setenv("CALCULATION_SERVICE_TOKEN", "t")
+    response = client.post("/api/v1/ephemeris/positions", json={}, headers={"Authorization": "Bearer t"})
+    assert response.status_code == 503
+    assert response.json()["detail"]["code"] == "service_disabled"

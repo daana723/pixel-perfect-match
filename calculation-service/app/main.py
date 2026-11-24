@@ -20,6 +20,8 @@ bearer = HTTPBearer(auto_error=False)
 ORIENTATIONS = ["ASC / ASC", "ASC / DSC", "DSC / ASC", "DSC / DSC"]
 
 async def verify_service_token(credentials: HTTPAuthorizationCredentials | None = Depends(bearer)):
+    if os.environ.get("SERVICE_ENABLED", "false").lower() != "true":
+        raise HTTPException(503, detail={"code": "service_disabled", "message": "Service is disabled pending licensing decision.", "stage": "scaffold"})
     expected = os.environ.get("CALCULATION_SERVICE_TOKEN")
     if not expected:
         raise HTTPException(503, detail={"code": "service_not_configured", "message": "Service authentication is not configured.", "stage": "scaffold"})
