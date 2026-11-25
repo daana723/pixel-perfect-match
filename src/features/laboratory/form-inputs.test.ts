@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { normalizeCivilTime, durationFromInput } from './form-inputs';
+import { normalizeCivilTime, durationFromInput, windowAround } from './form-inputs';
 import { assumptionSchema } from './cases';
 
 describe('Entered civil times and approximate prenatal duration', () => {
@@ -19,5 +19,20 @@ describe('Entered civil times and approximate prenatal duration', () => {
   });
   it('keeps an explicitly chosen LMP convention rather than silently converting to conception', () => {
     expect(durationFromInput({ weeks: '40', unit: 'weeks', days: '', hours: '0', convention: 'lmp' })).toEqual({ days: 280, hours: 0, convention: 'lmp', approximate: true });
+  });
+});
+describe('Lenient birth-time formats and approximate windows', () => {
+  it('accepts dots, commas, h, plain hours and four digits', () => {
+    expect(normalizeCivilTime('09.30')).toBe('09:30');
+    expect(normalizeCivilTime('9,30')).toBe('09:30');
+    expect(normalizeCivilTime('9h30')).toBe('09:30');
+    expect(normalizeCivilTime('9am')).toBe('09:00');
+    expect(normalizeCivilTime('5 p.m.')).toBe('17:00');
+    expect(normalizeCivilTime('17')).toBe('17:00');
+    expect(normalizeCivilTime('1730')).toBe('17:30');
+  });
+  it('builds a ± window around one approximate time, wrapping midnight', () => {
+    expect(windowAround('9:30', 60)).toEqual({ earliest: '08:30', latest: '10:30' });
+    expect(windowAround('23:45', 30)).toEqual({ earliest: '23:15', latest: '00:15' });
   });
 });

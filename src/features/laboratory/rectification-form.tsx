@@ -11,7 +11,7 @@ import { CelestialInstrument } from './celestial-instrument';
 import { useResults } from './results-provider';
 import { CityPicker } from './city-picker';
 import { birthCityFields, prenatalCityFields } from './cities';
-import { durationFromInput, type DurationInput } from './form-inputs';
+import { durationFromInput, windowAround, type DurationInput } from './form-inputs';
 
 type Fields = { name: string; birthDate: string; earliestTime: string; latestTime: string; city: string; country: string; latitude: string; longitude: string; altitude: string; timezone: string; ambiguity: CaseInput['ambiguity']; uncertainty: string; prenatalCity: string; prenatalLatitude: string; prenatalLongitude: string; prenatalAltitude: string; conceptionDate: string; notes: string; verification: CaseInput['verification']; houseSystem: CaseInput['houseSystem'] };
 type Duration = DurationInput;
@@ -30,29 +30,49 @@ export function RectificationForm({ caseId }: { caseId?: string }) {
   const [method, setMethod] = useState<Method>('modern');
   const [errors, setErrors] = useState<string[]>([]);
   const [saving, setSaving] = useState(false);
+  const [timeMode, setTimeMode] = useState<'approx' | 'range'>('approx');
+  const [approxTime, setApproxTime] = useState('');
+  const [spread, setSpread] = useState(60);
   useEffect(() => {
     const record = cases.find(c => c.id === caseId);
     if (!record) return;
     setFields({ ...record, latitude: String(record.latitude), longitude: String(record.longitude), altitude: String(record.altitude), prenatalLatitude: String(record.prenatalLatitude), prenatalLongitude: String(record.prenatalLongitude), prenatalAltitude: String(record.prenatalAltitude) });
     setDurations(record.assumptions.map(d => ({ ...d, days: String(d.days), hours: String(d.hours), weeks: String(d.days / 7), unit: d.approximate ? 'weeks' : 'days' })));
-    setSameLocation(record.sameLocation); setMethod(record.method);
+    setSameLocation(record.sameLocation); setMethod(record.method); setTimeMode('range');
   }, [caseId, cases]);
   function update<K extends keyof Fields>(key: K, value: Fields[K]) { setFields(previous => ({ ...previous, [key]: value })); }
   function input(key: keyof Fields, type = 'text', placeholder = '') { return <Input type={type} value={fields[key]} onChange={event => update(key, event.target.value as Fields[typeof key])} placeholder={placeholder} step={type === 'number' ? 'any' : undefined} />; }
   function updateDuration(index: number, patch: Partial<Duration>) { setDurations(previous => previous.map((d, i) => i === index ? { ...d, ...patch } : d)); }
   function data() {
     const number = (v: string) => v.trim() === '' ? NaN : Number(v);
-    return { ...fields, latitude: number(fields.latitude), longitude: number(fields.longitude), altitude: number(fields.altitude), sameLocation, prenatalLatitude: number(sameLocation ? fields.latitude : fields.prenatalLatitude), prenatalLongitude: number(sameLocation ? fields.longitude : fields.prenatalLongitude), prenatalAltitude: number(sameLocation ? fields.altitude : fields.prenatalAltitude), prenatalCity: sameLocation ? fields.city : fields.prenatalCity, assumptions: durations.map(durationFromInput), method };
+    const w = timeMode === 'approx' ? windowAround(approxTime, spread) : null;
+    const times = timeMode === 'approx' ? { earliestTime: w?.earliest ?? approxTime, latestTime: w?.latest ?? approxTime } : {};
+    const name = fields.name.trim() || `Inquiry — ${fields.city || 'birth record'}${fields.birthDate ? ` ${fields.birthDate}` : ''}`;
+    return { ...fields, ...times, name, latitude: number(fields.latitude), longitude: number(fields.longitude), altitude: number(fields.altitude), sameLocation, prenatalLatitude: number(sameLocation ? fields.latitude : fields.prenatalLatitude), prenatalLongitude: number(sameLocation ? fields.longitude : fields.prenatalLongitude), prenatalAltitude: number(sameLocation ? fields.altitude : fields.prenatalAltitude), prenatalCity: sameLocation ? fields.city : fields.prenatalCity, assumptions: durations.map(durationFromInput), method };
+  }
+  function continueStep() {
+    if (step === 0) {
+      const r = caseInputSchema.safeParse(data());
+      const keys = ['birthDate', 'earliestTime', 'latestTime', 'city', 'latitude', 'longitude', 'timezone'];
+      const issues = r.success ? [] : r.error.issues.filter(i => keys.includes(String(i.path[0])));
+      if (issues.length) { showIssues(issues); return; }
+    }
+    setStep(s => s + 1); setErrors([]);
+  }
+  function showIssues(issues: { path: PropertyKey[]; message: string }[]) {
+      const labels: Record<string, string> = { name: 'Case name', birthDate: 'Birth date', earliestTime: timeMode === 'approx' ? 'Approximate birth time' : 'Earliest possible birth time', latestTime: timeMode === 'approx' ? 'Approximate birth time' : 'Latest possible birth time', city: 'Birth city', country: 'Country', latitude: 'Birth latitude', longitude: 'Birth longitude', altitude: 'Altitude', timezone: 'Timezone', prenatalLatitude: 'Prenatal latitude', prenatalLongitude: 'Prenatal longitude', prenatalAltitude: 'Prenatal altitude', conceptionDate: 'Conception date' };
+      const msgs = issues.map(issue => {
+        const key = String(issue.path[0]);
+        if (key === 'assumptions') return `Pregnancy length ${Number(issue.path[1] ?? 0) + 1}: enter a positive number of weeks, or a duration in days (at most 500 days).`;
+        if (timeMode === 'approx' && (key === 'earliestTime' || key === 'latestTime')) return 'Approximate birth time: enter a time such as 9:30, 09.30, 9am or 1730.';
+        return `${labels[key] ?? key}: ${issue.message.includes('NaN') ? 'Enter a number.' : issue.message}`;
+      });
+      setErrors([...new Set(msgs)]);
   }
   async function handleSave(calculate = false) {
     const result = caseInputSchema.safeParse(data());
     if (!result.success) {
-      const labels: Record<string, string> = { name: 'Case name', birthDate: 'Birth date', earliestTime: 'Earliest possible birth time', latestTime: 'Latest possible birth time', city: 'Birth city', country: 'Country', latitude: 'Birth latitude', longitude: 'Birth longitude', altitude: 'Altitude', timezone: 'Timezone', prenatalLatitude: 'Prenatal latitude', prenatalLongitude: 'Prenatal longitude', prenatalAltitude: 'Prenatal altitude', conceptionDate: 'Conception date' };
-      setErrors(result.error.issues.map(issue => {
-        const key = String(issue.path[0]);
-        if (key === 'assumptions') return `Pregnancy length ${Number(issue.path[1] ?? 0) + 1}: enter a positive number of weeks, or a duration in days (at most 500 days).`;
-        return `${labels[key] ?? key}: ${issue.message.includes('NaN') ? 'Enter a number.' : issue.message}`;
-      }));
+      showIssues(result.error.issues);
       const prenatalKeys = ['assumptions', 'prenatalLatitude', 'prenatalLongitude', 'prenatalAltitude', 'conceptionDate'];
       setStep(prenatalKeys.includes(String(result.error.issues[0]?.path[0])) ? 1 : 0);
       return;
@@ -69,10 +89,12 @@ export function RectificationForm({ caseId }: { caseId?: string }) {
     <div className="workflow-steps" aria-label="Rectification steps">{steps.map((label, index) => <Button key={label} variant="ghost" className="workflow-step" data-active={step === index} onClick={() => { setStep(index); setErrors([]); }}><span className="step-number">{index + 1}</span>{label}</Button>)}</div>
     <div className="form-layout"><div>
       {step === 0 && <section className="form-section"><h2>The birth record</h2><p>Local civil times are retained exactly as entered. No timezone is assumed.</p><div className="field-grid">
-        <Field label="Case name" wide>{input('name', 'text', 'A private reference for this inquiry')}</Field>
+        <Field label="Case name (optional)" wide>{input('name', 'text', 'Leave blank to name it automatically')}</Field>
         <Field label="Birth date">{input('birthDate', 'date')}</Field><Field label="Time uncertainty (optional)">{input('uncertainty', 'text', 'e.g. Family recollection, ±30 minutes')}</Field>
-        <Field label="Earliest possible birth time">{input('earliestTime', 'text', '09:30 or 9:30 AM')}</Field><Field label="Latest possible birth time">{input('latestTime', 'text', '17:30 or 5:30 PM')}</Field>
-        {crossesMidnight(fields.earliestTime, fields.latestTime) && fields.latestTime && <div className="form-info field-wide"><Info size={15} />This interval crosses midnight. The latest time is on the following calendar day.</div>}
+        <Field label="How do you know the birth time?" wide><select value={timeMode} onChange={e => setTimeMode(e.target.value as 'approx' | 'range')}><option value="approx">Approximately (one time, give or take)</option><option value="range">Between two times</option></select></Field>
+        {timeMode === 'approx' ? <><Field label="Approximate birth time" hint="Any format: 9:30, 09.30, 9am, 1730">{<Input value={approxTime} onChange={e => setApproxTime(e.target.value)} placeholder="e.g. 9:30 AM" />}</Field><Field label="Give or take" hint={(() => { const w = windowAround(approxTime, spread); return w ? `Searches ${w.earliest} – ${w.latest}` : undefined; })()}><select value={spread} onChange={e => setSpread(Number(e.target.value))}><option value={15}>± 15 minutes</option><option value={30}>± 30 minutes</option><option value={60}>± 1 hour</option><option value={120}>± 2 hours</option><option value={240}>± 4 hours</option></select></Field></>
+        : <><Field label="Earliest possible birth time" hint="Any format: 9:30, 09.30, 9am">{input('earliestTime', 'text', 'e.g. 09:30')}</Field><Field label="Latest possible birth time" hint="Any format: 17:30, 5pm, 1730">{input('latestTime', 'text', 'e.g. 17:30')}</Field></>}
+        {timeMode === 'range' && crossesMidnight(fields.earliestTime, fields.latestTime) && fields.latestTime && <div className="form-info field-wide"><Info size={15} />This interval crosses midnight. The latest time is on the following calendar day.</div>}
         <CityPicker label="Birth city" value={fields.city} onChange={city => setFields(previous => ({ ...previous, city, country: '', latitude: '', longitude: '', timezone: '' }))} onSelect={city => setFields(previous => ({ ...previous, ...birthCityFields(city) }))} />
         <Field label="Country" wide>{input('country', 'text', 'Country')}</Field>
         <Field label="Latitude (decimal degrees)">{input('latitude', 'number', '−90 to 90')}</Field><Field label="Longitude (decimal degrees)">{input('longitude', 'number', '−180 to 180')}</Field>
@@ -89,11 +111,11 @@ export function RectificationForm({ caseId }: { caseId?: string }) {
         ['comparison', 'Compare both engines', 'Identical birth records and prenatal assumptions; separately recorded outcomes.', 'Comparison awaits both validated engines'],
       ] as const).map(([key, title, description, status]) => <label className="method-option" key={key} data-selected={method === key}><input type="radio" name="calculation-method" value={key} checked={method === key} onChange={() => setMethod(key)} /><div><h3>{title}</h3><p>{description}</p><small>{status}</small></div></label>)}</div><h2 className="mt-8">Exploratory axis orientations</h2><p>All four pairings are preserved for the future candidate search.</p><div className="axis-list">{orientations.map(o => <span className="axis-item" key={o}><Check size={12} />{o}</span>)}</div><div className="field-grid mt-6"><Field label="House system"><select value={fields.houseSystem} onChange={e => update('houseSystem', e.target.value as Fields['houseSystem'])}><option value="P">Placidus</option><option value="E">Equal houses</option><option value="W">Whole sign</option><option value="R">Regiomontanus</option></select></Field><Field label="Zodiac"><Input readOnly value="Tropical" /></Field></div></section>}
       {step === 3 && <section className="form-section"><h2>Preserve the research record</h2><p>Saving stores your inputs and assumptions, not a calculated or verified birth time.</p><dl className="review-grid">{[
-        ['Case', fields.name || 'Not entered'], ['Birth date', fields.birthDate || 'Not entered'], ['Local interval', `${fields.earliestTime || '—'} – ${fields.latestTime || '—'}${crossesMidnight(fields.earliestTime, fields.latestTime) ? ' (+1 day)' : ''}`], ['Historical timezone', fields.timezone || 'Not entered'], ['Birth location', `${fields.city || '—'}, ${fields.country || '—'} · ${fields.latitude || '—'}, ${fields.longitude || '—'}`], ['Method', methodNames[method]], ['Prenatal assumptions', durations.map(d => d.unit === 'weeks' ? `Approximately ${d.weeks || '—'} weeks (${d.convention})` : `${d.days || '—'} days + ${d.hours} hours (${d.convention})`).join('; ')], ['Calculation status', 'Not calculated · no candidate results'],
+        ['Case', data().name], ['Birth date', fields.birthDate || 'Not entered'], ['Local interval', (() => { const d = data(); return `${d.earliestTime || '—'} – ${d.latestTime || '—'}${crossesMidnight(d.earliestTime, d.latestTime) ? ' (+1 day)' : ''}`; })()], ['Historical timezone', fields.timezone || 'Not entered'], ['Birth location', `${fields.city || '—'}, ${fields.country || '—'} · ${fields.latitude || '—'}, ${fields.longitude || '—'}`], ['Method', methodNames[method]], ['Prenatal assumptions', durations.map(d => d.unit === 'weeks' ? `Approximately ${d.weeks || '—'} weeks (${d.convention})` : `${d.days || '—'} days + ${d.hours} hours (${d.convention})`).join('; ')], ['Calculation status', 'Not calculated · no candidate results'],
       ].map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl><div className="field-grid"><Field label="Independent verification status" wide><select value={fields.verification} onChange={e => update('verification', e.target.value as Fields['verification'])}><option value="unverified">Unverified</option><option value="documentary-evidence">Documentary evidence recorded</option><option value="independently-verified">Independently verified by the astrologer</option></select></Field><Field label="Research notes" wide><textarea value={fields.notes} onChange={e => update('notes', e.target.value)} placeholder="Sources, documentary evidence, uncertainties, and working observations…" /></Field></div></section>}
       {(errors.length > 0 || storageError) && <div className="error-banner" role="alert">{storageError}{errors.map((error, i) => <p key={i}>{error}</p>)}</div>}
       {step === 3 && <p className="form-info">Browser calculation uses the earliest birth time and first duration assumption. All four experimental orientations are scanned; no classical rule is applied. Equal or Whole sign houses are required.</p>}
-      <div className="form-bottom"><Button variant="ghost" disabled={step === 0 || saving} onClick={() => { setStep(s => s - 1); setErrors([]); }}><ArrowLeft />Back</Button><div>{step < 3 ? <Button onClick={() => { setStep(s => s + 1); setErrors([]); }}>Continue <ArrowRight /></Button> : <><Button variant="outline" disabled={saving || !ready || Boolean(storageError)} onClick={() => handleSave()}><Save />{caseId ? 'Save changes' : 'Save case locally'}</Button><Button disabled={saving || !ready || Boolean(storageError)} onClick={() => handleSave(true)}>{saving ? 'Calculating…' : 'Save & calculate'}<ArrowRight /></Button></>}</div></div>
+      <div className="form-bottom"><Button variant="ghost" disabled={step === 0 || saving} onClick={() => { setStep(s => s - 1); setErrors([]); }}><ArrowLeft />Back</Button><div>{step < 3 ? <Button onClick={continueStep}>Continue <ArrowRight /></Button> : <><Button variant="outline" disabled={saving || !ready || Boolean(storageError)} onClick={() => handleSave()}><Save />{caseId ? 'Save changes' : 'Save case locally'}</Button><Button disabled={saving || !ready || Boolean(storageError)} onClick={() => handleSave(true)}>{saving ? 'Calculating…' : 'Save & calculate'}<ArrowRight /></Button></>}</div></div>
     </div><aside className="form-aside"><div className="eyebrow">THE LABORATORY STANDARD</div><CelestialInstrument small /><h3>Every assumption matters.</h3><p>The birth interval, observer location, prenatal convention, and selected method form the foundation of a reproducible inquiry.</p><div className="aside-rule" /><div className="form-info"><ShieldCheck size={17} />This record stays in your browser. Export a backup to protect against device loss or cleared browser data.</div></aside></div>
   </>;
 }
