@@ -3,6 +3,12 @@ import { caseInputSchema, caseArchiveSchema, crossesMidnight, orientations, pren
 // Explicit fixture assumptions, not a universal duration or an astronomical reference chart.
 const input = { name: 'Test inquiry', birthDate: '1990-06-15', earliestTime: '23:30', latestTime: '00:30', city: 'London', country: 'United Kingdom', latitude: 51.5, longitude: -0.12, altitude: 0, timezone: 'Europe/London', ambiguity: 'reject', uncertainty: '', assumptions: [{ days: 270, hours: 6, convention: 'custom' }], sameLocation: true, prenatalCity: 'London', prenatalLatitude: 51.5, prenatalLongitude: -0.12, prenatalAltitude: 0, conceptionDate: '', method: 'classical', houseSystem: 'P', notes: '', verification: 'unverified' };
 describe('Research input rules', () => {
+  it('accepts already-entered birth bounds in common clock formats and rejects incomplete times', () => {
+    const result = caseInputSchema.parse({ ...input, earliestTime: '9:30 AM', latestTime: '10:30:00' });
+    expect(result.earliestTime).toBe('09:30');
+    expect(result.latestTime).toBe('10:30');
+    expect(caseInputSchema.safeParse({ ...input, earliestTime: '09:' }).success).toBe(false);
+  });
   it('requires an explicit historical timezone rather than assuming UTC', () => { expect(caseInputSchema.safeParse({ ...input, timezone: '' }).success).toBe(false); expect(validTimezone('Europe/London')).toBe(true); expect(validTimezone('Not/A_Zone')).toBe(false); });
   it('requires explicit prenatal assumptions with no universal duration', () => { expect(caseInputSchema.safeParse({ ...input, assumptions: [] }).success).toBe(false); expect(caseInputSchema.safeParse(input).success).toBe(true); });
   it('preserves all four exploratory axis combinations', () => { expect(orientations).toEqual(['ASC / ASC', 'ASC / DSC', 'DSC / ASC', 'DSC / DSC']); });

@@ -22,7 +22,7 @@ export function createReport(result: ReportResult, selected: number | null) {
   line(`Case: ${result.case_name}`, 14);
   line(`Birth record: ${result.input_record.birthDate}, ${result.input_record.earliestTime} - ${result.input_record.latestTime} local; ${result.civil.timezone}`);
   line(`Location: ${result.input_record.city}, ${result.input_record.country}; latitude ${result.input_record.latitude}, longitude ${result.input_record.longitude}`);
-  line(`Duration assumption ${result.assumption_index + 1}: ${result.assumption.days} days + ${result.assumption.hours} hours (${result.assumption.convention}).`);
+  line(`Duration assumption ${result.assumption_index + 1}: ${result.assumption.approximate ? `approximately ${result.assumption.days / 7} weeks; ` : ''}${result.assumption.days} days + ${result.assumption.hours} hours (${result.assumption.convention}).`);
   line(`Engine: ${result.profile === 'browser-geocentric' ? 'Astronomy Engine 2.1.19 (MIT), browser geocentric' : 'pyswisseph 2.10.3.2, private offline calculation'}; tropical; house system ${natal.house_system}.`);
   line('Experimental research only. No source-approved classical Trutine equation is applied. Low RMS is mathematical fit, not proof of a true birth time.');
   if (candidate) line(`Selected sampled candidate: ${candidate.utc}; ${candidate.orientation}; r1 ${candidate.r1.toFixed(4)}, r2 ${candidate.r2.toFixed(4)}, RMS ${candidate.rms.toFixed(4)} degrees.`);

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { normalizeCivilTime } from './form-inputs';
 
 export const methodSchema = z.enum(['classical', 'modern', 'comparison']);
 export const orientations = ['ASC / ASC', 'ASC / DSC', 'DSC / ASC', 'DSC / DSC'] as const;
@@ -16,12 +17,14 @@ export const assumptionSchema = z.object({
   days: z.number().finite().positive().max(500),
   hours: z.number().finite().min(0).lt(24),
   convention: z.enum(['conception', 'lmp', 'custom']),
+  approximate: z.boolean().optional(),
 });
+const civilTimeSchema = (message: string) => z.string().transform(normalizeCivilTime).pipe(z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/, message));
 export const caseInputSchema = z.object({
   name: z.string().trim().min(1, 'A case name is required.').max(120),
   birthDate: z.string().refine(validDate, 'Enter a valid birth date.'),
-  earliestTime: z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/, 'Enter the earliest time.'),
-  latestTime: z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/, 'Enter the latest time.'),
+  earliestTime: civilTimeSchema('Enter the earliest time, e.g. 09:30 or 9:30 AM.'),
+  latestTime: civilTimeSchema('Enter the latest time, e.g. 17:30 or 5:30 PM.'),
   city: z.string().trim().min(1, 'Enter a birth city.').max(160),
   country: z.string().trim().min(1, 'Enter a country.').max(100),
   latitude: coordinate(-90, 90),
@@ -48,7 +51,7 @@ export type CaseInput = z.infer<typeof caseInputSchema>;
 export type SavedCase = z.infer<typeof savedCaseSchema>;
 export type Method = z.infer<typeof methodSchema>;
 export const methodNames: Record<Method, string> = { classical: 'Classical Trutine', modern: 'Experimental research', comparison: 'Compare both engines' };
-export function crossesMidnight(earliest: string, latest: string) { return latest < earliest; }
+export function crossesMidnight(earliest: string, latest: string) { return Boolean(earliest && latest) && normalizeCivilTime(latest) < normalizeCivilTime(earliest); }
 export function prenatalHours(days: number, hours: number) { return days * 24 + hours; }
 export function archive(cases: SavedCase[]) { return { format: 'hermes-trutine', version: 1, cases }; }
 export function csvCell(value: string | number) {

@@ -2,6 +2,7 @@ import { Temporal } from '@js-temporal/polyfill';
 import { AstroTime, Body, Ecliptic, GeoVector, RotateVector, Rotation_EQD_ECT, SiderealTime, Vector } from 'astronomy-engine';
 import { caseInputSchema, orientations, type CaseInput } from './cases';
 import type { CalculatedChart } from './astronomy-results';
+import { normalizeCivilTime } from './form-inputs';
 
 export type DisplayChart = Pick<CalculatedChart, 'utc' | 'jd_ut' | 'jd_tt' | 'delta_t_seconds' | 'ascendant' | 'descendant' | 'mc' | 'ic' | 'cusps' | 'house_system'> & {
   points: { name: string; longitude: number }[];
@@ -59,6 +60,8 @@ export function browserChart(ms: number, latitude: number, longitude: number, ho
 }
 export async function calculateBrowser(input: CaseInput, localTime: string, assumptionIndex: number, search = true, progress?: (percentage: number) => void): Promise<BrowserResult> {
   const record = caseInputSchema.parse(input);
+  localTime = normalizeCivilTime(localTime);
+  if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(localTime)) throw new Error('Enter a local birth time, e.g. 09:30 or 9:30 AM.');
   const assumption = record.assumptions[assumptionIndex];
   if (!assumption) throw new Error('Choose an existing duration assumption.');
   if (assumption.convention === 'lmp') throw new Error('LMP is not a conception epoch. Choose an explicit conception or custom duration.');

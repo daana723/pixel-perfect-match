@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { parseAstronomyResult } from './astronomy-results';
 import { browserChart, calculateBrowser, civilInstant, civilInterval, horizon, residual } from './browser-astronomy';
 import { orientations, type CaseInput } from './cases';
+import { durationFromInput } from './form-inputs';
 
 export function browserCase(): CaseInput {
   const source = parseAstronomyResult(readFileSync('calculation-service/tests/references/private-j2000-pair.json', 'utf8')).input_record;
@@ -53,6 +54,14 @@ describe('Browser astronomy: limited J2000 references, not historical validation
     expect(Date.parse(alternative.natal.utc) - Date.parse(alternative.prenatal.utc)).toBe(270 * 86400000);
     expect(result.historical_status).toBe('unresolved');
     expect(result.profile).toBe('browser-geocentric');
+  });
+  it('calculates from entered clock formats and retains an approximate week assumption', async () => {
+    const assumption = durationFromInput({ weeks: '38.5', unit: 'weeks', days: '', hours: '', convention: 'custom' });
+    const result = await calculateBrowser({ ...browserCase(), earliestTime: '12:00 PM', latestTime: '12:10 PM', assumptions: [assumption] }, '12:00 PM', 0);
+    expect(result.natal.utc).toBe('2000-01-01T12:00:00.000Z');
+    expect(result.search?.end_utc).toBe('2000-01-01T12:10:00.000Z');
+    expect(result.assumption.approximate).toBe(true);
+    expect(Date.parse(result.natal.utc) - Date.parse(result.prenatal.utc)).toBe(269.5 * 86400000);
   });
   it('preserves four independent orientations and concrete RMS residuals', async () => {
     const result = await calculateBrowser(browserCase(), '12:00', 0);

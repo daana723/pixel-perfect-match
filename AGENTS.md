@@ -41,3 +41,4 @@ use the editor.
 - Keep browser results distinct from validated Swiss imports in session memory; never fabricate Swiss settings or hashes for the browser model.
 - Generate research PDFs locally from result data, with a prepared-download step to preserve mobile download activation and explicit experimental/source limitations.
 - Load the attributed static GeoNames city directory on user focus and search only in the browser; keep manual coordinates/timezone overrides because city centres and modern zone identifiers are not exact historical birth locations.
+- Normalize typed civil times in the shared case schema and convert approximate week inputs to explicitly marked duration assumptions; this preserves local-time intent and uncertainty across saves, calculations and reports without inventing LMP/conception rules.

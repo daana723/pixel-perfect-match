@@ -1,6 +1,7 @@
 # Hermes Trutine — Birth Time Rectification roadmap
 
 ## Simplified browser edition
+- [x] Check entered birth times and add approximate weeks: 44 frontend tests passed; desktop/phone create → calculate → edit verified, no private POSTs. Read new/edit form, shared schemas, saved-case calculator (comparison/candidates), browser scan, case archive CRUD/import/export, dashboard, settings backups, results import, wheels/report flow and offline Python pair/search/validation. Existing records and Python service unchanged; approximate assumptions remain marked, no automatic LMP-to-conception conversion.
 - [x] Add private search across 34,246 GeoNames cities for birth and prenatal places, automatic coordinates and birth timezone, manual overrides; verified saved case → real charts, phone layout and privacy (38 frontend tests passed).
 - [ ] Three free birth-date cases, then EUR 12 once via Stripe: owner deferred payment setup; no enforcement until checkout and paid-access verification exist.
 - [x] Preserve an original source backup and rename the app, retaining its visual direction and tagline.
