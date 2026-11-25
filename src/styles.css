@@ -131,6 +131,8 @@
 .service-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--primary); }
 .workspace-footer { padding: 14px 38px 21px; display: flex; justify-content: space-between; font-size: 8px; color: var(--subtle); gap: 15px; }
 .workspace-footer > span:last-child { display: flex; gap: 6px; align-items: center; white-space: nowrap; }
+.support-link { display: inline-flex; gap: 5px; align-items: center; color: var(--accent); text-decoration: none; margin-right: 10px; }
+.support-link:hover { text-decoration: underline; }
 .footer-dot { margin: 0 5px; }
 .mobile-menu,.sidebar-mobile-close { display: none; }
 .page-heading { padding: 38px 0 29px; display: flex; justify-content: space-between; gap: 20px; align-items: center; }

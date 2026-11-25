@@ -1,6 +1,7 @@
 import { jsPDF } from 'jspdf';
 import type { AstronomyResult } from './astronomy-results';
 import type { BrowserResult, DisplayChart } from './browser-astronomy';
+import { SUPPORT_URL } from './support';
 
 export type ReportResult = AstronomyResult | BrowserResult;
 export function createReport(result: ReportResult, selected: number | null) {
@@ -46,6 +47,7 @@ export function createReport(result: ReportResult, selected: number | null) {
   if ('input_sha256' in result) line(`Original input SHA-256: ${result.input_sha256}`);
   line(`Recorded verification status: ${result.input_record.verification}. This is the astrologer's record, not application verification.`);
   if (result.input_record.notes) { line('Research notes', 14); line(result.input_record.notes); }
+  if (SUPPORT_URL) line(`Support this research (one-time, optional): ${SUPPORT_URL}`);
   for (let i = 1; i <= pdf.getNumberOfPages(); i++) { pdf.setPage(i); pdf.setFontSize(8); pdf.text(`Hermes Trutine | Research only | ${i} / ${pdf.getNumberOfPages()}`, 18, 289); }
   return pdf.output('blob');
 }
