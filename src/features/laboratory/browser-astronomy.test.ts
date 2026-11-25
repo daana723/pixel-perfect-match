@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { parseAstronomyResult } from './astronomy-results';
 import { browserChart, calculateBrowser, civilInstant, civilInterval, horizon, residual } from './browser-astronomy';
-import { orientations, type CaseInput } from './cases';
+import { caseInputSchema, orientations, type CaseInput } from './cases';
 import { durationFromInput } from './form-inputs';
 
 export function browserCase(): CaseInput {
@@ -86,5 +86,15 @@ describe('Browser astronomy: limited J2000 references, not historical validation
     await expect(calculateBrowser(browserCase(), '11:59', 0)).rejects.toThrow(/inside/);
     expect(() => horizon(Date.UTC(1800, 0, 1), 51.5, 0)).toThrow(/1900/);
     expect(() => horizon(Date.UTC(2000, 0, 1), 66, 0)).toThrow(/latitude/);
+  });
+  it('accepts an entered 06:33 within 05:00–07:00 without claiming rectification', async () => {
+    const input = { ...browserCase(), earliestTime: '5:00 AM', latestTime: '7:00 AM' };
+    const span = civilInterval(caseInputSchema.parse(input));
+    expect(span.end - span.start).toBe(2 * 3600000);
+    const result = await calculateBrowser(input, '6:33 AM', 0, false);
+    expect(result.natal.utc).toBe('2000-01-01T06:33:00.000Z');
+    expect(result.historical_status).toBe('unresolved');
+    expect(result.candidates).toEqual([]);
+    await expect(calculateBrowser(input, '7:01 AM', 0, false)).rejects.toThrow(/inside/);
   });
 });

@@ -1,5 +1,10 @@
 # Hermes Trutine — Birth Time Rectification roadmap
 
+## Astrologer-facing results
+- [ ] Show zodiac degrees/minutes, prominent Ascendant and local clock times, planetary houses, and readable natal/prenatal comparisons in charts, candidates and PDF.
+- [ ] Verify a 05:00–07:00 window accepts 06:33 without presenting the entered time as a rectification result; run regression tests and desktop/phone checks.
+- [ ] Validate the owner's manual 06:33 result independently: awaiting exact birthplace and worked method/prenatal epoch; do not force this target or implement an invented historical rule.
+
 ## Simplified browser edition
 - [x] Check entered birth times and add approximate weeks: 44 frontend tests passed; desktop/phone create → calculate → edit verified, no private POSTs. Read new/edit form, shared schemas, saved-case calculator (comparison/candidates), browser scan, case archive CRUD/import/export, dashboard, settings backups, results import, wheels/report flow and offline Python pair/search/validation. Existing records and Python service unchanged; approximate assumptions remain marked, no automatic LMP-to-conception conversion.
 - [x] Add private search across 34,246 GeoNames cities for birth and prenatal places, automatic coordinates and birth timezone, manual overrides; verified saved case → real charts, phone layout and privacy (38 frontend tests passed).

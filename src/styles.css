@@ -272,6 +272,17 @@
 .wheel-overlay .wheel-point,.wheel-overlay .wheel-marker { fill: var(--success); }
 .wheel-overlay .wheel-point-line { stroke: var(--success); }
 .chart-epoch { overflow-wrap: anywhere; line-height: 1.8; margin-top: 16px; }
+.chart-summary { margin: 16px 0 22px; }
+.chart-summary .eyebrow { justify-content: center; }
+.chart-local-time { display: block; font-family: var(--font-display); font-size: 38px; line-height: 1.2; color: var(--primary); font-variant-numeric: tabular-nums; margin-top: 8px; }
+.chart-summary .chart-local-date { margin: 7px 0 18px; overflow-wrap: anywhere; font-size: 12px; }
+.chart-key-positions { margin: 0; display: grid; gap: 10px; }
+.chart-key-positions dt { color: var(--muted-foreground); font-size: 10px; margin-bottom: 4px; }
+.chart-key-positions dd { margin: 0; font-size: 16px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.chart-key-positions > div:first-child dd { color: var(--primary); font-size: 20px; }
+.result-details { padding: 22px 0; border-top: 1px solid var(--border); }
+.result-details summary { cursor: pointer; color: var(--muted-foreground); font-size: 12px; }
+.result-details p { margin-top: 12px; font-size: 12px; line-height: 1.9; color: var(--muted-foreground); overflow-wrap: anywhere; }
 .astronomy-table-wrap { width: 100%; overflow-x: auto; }
 .astronomy-table { border-collapse: collapse; width: 100%; font-size: 12px; text-align: left; font-variant-numeric: tabular-nums; }
 .astronomy-table th,.astronomy-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); white-space: nowrap; }
