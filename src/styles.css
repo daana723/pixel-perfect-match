@@ -159,6 +159,20 @@
 .field select { width: 100%; padding: 0 12px; border: 1px solid var(--input); border-radius: 5px; color: var(--foreground); }
 .field small { color: var(--subtle); font-size: 9px; line-height: 1.7; }
 .field-wide { grid-column: 1 / -1; }
+.city-picker { position: relative; }
+.city-picker > label { font-size: 11px; }
+.city-search-input { position: relative; }
+.city-search-input > svg { position: absolute; left: 12px; top: 12px; color: var(--muted-foreground); pointer-events: none; }
+.city-search-input input { padding-left: 36px; }
+.city-results { position: absolute; top: 67px; left: 0; right: 0; z-index: 15; max-height: 290px; overflow-y: auto; background: var(--popover); border: 1px solid var(--border); border-radius: 5px; box-shadow: var(--surface-shadow); padding: 4px; }
+.city-results > p { padding: 14px; font-size: 11px; color: var(--muted-foreground); line-height: 1.6; }
+.city-option { display: flex; width: 100%; min-height: 54px; height: auto; padding: 9px 10px; justify-content: flex-start; text-align: left; white-space: normal; }
+.city-option[aria-selected=true] { background: var(--accent); }
+.city-option > svg { color: var(--primary); }
+.city-option > span { min-width: 0; }
+.city-option strong { display: block; font-size: 12px; font-weight: 500; overflow-wrap: anywhere; }
+.city-option small { display: block; color: var(--muted-foreground); font-size: 10px; }
+.city-attribution a { color: var(--muted-foreground); text-decoration: underline; }
 .field textarea { width: 100%; min-height: 140px; border: 1px solid var(--input); background: var(--card); color: var(--foreground); border-radius: 5px; padding: 12px; resize: vertical; }
 .form-info { padding: 13px 0; display: flex; gap: 9px; color: var(--muted-foreground); font-size: 10px; line-height: 1.8; }
 .form-info svg { color: var(--primary); flex-shrink: 0; margin-top: 3px; }

@@ -1,11 +1,13 @@
 # Hermes Trutine — Birth Time Rectification roadmap
 
 ## Simplified browser edition
+- [x] Add private search across 34,246 GeoNames cities for birth and prenatal places, automatic coordinates and birth timezone, manual overrides; verified saved case → real charts, phone layout and privacy (38 frontend tests passed).
+- [ ] Three free birth-date cases, then EUR 12 once via Stripe: owner deferred payment setup; no enforcement until checkout and paid-access verification exist.
 - [x] Preserve an original source backup and rename the app, retaining its visual direction and tagline.
 - [x] Add private browser astronomy and explicitly experimental fixed-duration candidate scanning; retain the Python engine unchanged.
 - [x] Add downloadable PDF research reports and document engine/licensing limits.
 - [x] Verify calculations, case-to-chart-to-report flow and mobile layout (32 tests; desktop and phone).
-- [ ] Optional one-time support link: waiting for the owner's link; no recurring billing or trial gate.
+- [x] Optional support-link plumbing; superseded by the requested one-time Stripe/trial direction, not activated.
 
 ## First deliverable
 - [x] Stage 1: laboratory dashboard, seven navigation views, birth/prenatal/method workflow, private local case CRUD and import/export.
@@ -33,11 +35,11 @@
 - [x] Stage 8: limited private astronomical regressions and no-network UI acceptance.
 - [ ] Stage 8: comprehensive independent multi-epoch astronomy and public security/deployment verification; blocked by public licensing/source review.
 ## Commercial planning (current)
-- Earlier subscription tiers and paid hosting plans below are superseded by free browser use and optional symbolic one-time support; no trial gate or payment is active.
+- Earlier subscription tiers and paid hosting plans are superseded by three free birth-date cases and EUR 12 once via Stripe; setup is deferred by the owner, no payment gate is active.
 - [x] Production Render config (Starter, not applied).
 - [x] Report: COMMERCIAL_PLAN.md.
 - [ ] Written confirmation from Astrodienst (user to send questions).
-- [ ] Payments: deferred until engine validated.
+- [ ] Payments: owner chose to decide on Stripe setup later.
 ## Calculation engine (started, no subscriptions)
 - [x] Civil time → UTC (gap/fold handling, offset transitions), Julian Day UT, explicit prenatal windows, orientation-separated minimum search — ephemeris-independent, tested.
 - [x] Real Moon/planetary positions, ASC/DSC/MC and houses for local private AGPL testing only.
