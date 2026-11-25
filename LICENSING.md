@@ -1,5 +1,9 @@
 # Licensing checklist
 
+## Browser edition (2026-11-25)
+
+The separate browser path uses Astronomy Engine 2.1.19 (MIT), `@js-temporal/polyfill` 0.5.1 (ISC), and jsPDF 4.2.1 (MIT), with notices in `public/licenses/`. No Swiss binding or data enters this browser calculation path. These library licences do not relicense the entire repository or remove obligations for the preserved Python distribution. No project-wide MIT licence is selected by this change. See [BROWSER_EDITION.md](BROWSER_EDITION.md). The Swiss checklist below continues to govern the original offline implementation.
+
 Swiss Ephemeris is dual-licensed. Review the exact licenses shipped with the selected distribution and the official terms: https://www.astro.com/swisseph/swephinfo_e.htm and https://www.astro.com/swisseph/swephprg.htm
 
 ## Alternatives

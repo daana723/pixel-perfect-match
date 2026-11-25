@@ -4,7 +4,7 @@ type Props = { title: string; points?: WheelPoint[]; ascendant?: number; mc?: nu
 // Renders only positions supplied by the calculation service; never synthesizes data.
 export function ChartWheel({ title, points = [], ascendant, mc, cusps = [], overlayPoints = [] }: Props) {
   const rotation = ascendant === undefined ? 0 : -ascendant;
-  const polar = (lon: number, r: number) => { const a = ((lon + rotation) * Math.PI) / 180; return { x: 100 - r * Math.cos(a), y: 100 + r * Math.sin(a) }; };
+  const polar = (lon: number, r: number) => { const a = ((lon + rotation) * Math.PI) / 180; return { x: Number((100 - r * Math.cos(a)).toFixed(6)), y: Number((100 + r * Math.sin(a)).toFixed(6)) }; };
   const empty = points.length === 0;
   return <figure className="chart-wheel" aria-label={empty ? `${title}: no calculated positions` : title}>
     <svg viewBox="0 0 200 200" role="img">

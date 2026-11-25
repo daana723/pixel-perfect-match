@@ -47,7 +47,7 @@ export const caseArchiveSchema = z.object({ format: z.literal('hermes-trutine'),
 export type CaseInput = z.infer<typeof caseInputSchema>;
 export type SavedCase = z.infer<typeof savedCaseSchema>;
 export type Method = z.infer<typeof methodSchema>;
-export const methodNames: Record<Method, string> = { classical: 'Classical Trutine', modern: 'Modern corrected', comparison: 'Compare both engines' };
+export const methodNames: Record<Method, string> = { classical: 'Classical Trutine', modern: 'Experimental research', comparison: 'Compare both engines' };
 export function crossesMidnight(earliest: string, latest: string) { return latest < earliest; }
 export function prenatalHours(days: number, hours: number) { return days * 24 + hours; }
 export function archive(cases: SavedCase[]) { return { format: 'hermes-trutine', version: 1, cases }; }

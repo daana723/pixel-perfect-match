@@ -1,4 +1,12 @@
-# Hermes Trutine Laboratory
+# Hermes Trutine — Birth Time Rectification
+
+## Current simplified browser edition
+
+Create a local birth record, choose an explicit prenatal duration and Equal or Whole sign houses, then **Save & calculate**. Real geocentric charts, experimental one-minute candidate scans and downloadable research PDFs run in the browser without accounts or a calculation server. No recurring payments or three-date gate were introduced. Classical Trutine equations remain unresolved. See [BROWSER_EDITION.md](BROWSER_EDITION.md) for browser settings, licences and verification boundaries.
+
+The original Python edition below is preserved unchanged in `calculation-service/` and at commit `8e6482a`; it is not a prerequisite for browser calculations.
+
+## Original laboratory edition
 
 Ancient astrological methodology. Transparent astronomical calculations.
 

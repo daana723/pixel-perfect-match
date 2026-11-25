@@ -1,4 +1,11 @@
-# Hermes Trutine Laboratory roadmap
+# Hermes Trutine — Birth Time Rectification roadmap
+
+## Simplified browser edition
+- [x] Preserve an original source backup and rename the app, retaining its visual direction and tagline.
+- [x] Add private browser astronomy and explicitly experimental fixed-duration candidate scanning; retain the Python engine unchanged.
+- [x] Add downloadable PDF research reports and document engine/licensing limits.
+- [x] Verify calculations, case-to-chart-to-report flow and mobile layout (32 tests; desktop and phone).
+- [ ] Optional one-time support link: waiting for the owner's link; no recurring billing or trial gate.
 
 ## First deliverable
 - [x] Stage 1: laboratory dashboard, seven navigation views, birth/prenatal/method workflow, private local case CRUD and import/export.
@@ -26,6 +33,7 @@
 - [x] Stage 8: limited private astronomical regressions and no-network UI acceptance.
 - [ ] Stage 8: comprehensive independent multi-epoch astronomy and public security/deployment verification; blocked by public licensing/source review.
 ## Commercial planning (current)
+- Earlier subscription tiers and paid hosting plans below are superseded by free browser use and optional symbolic one-time support; no trial gate or payment is active.
 - [x] Production Render config (Starter, not applied).
 - [x] Report: COMMERCIAL_PLAN.md.
 - [ ] Written confirmation from Astrodienst (user to send questions).

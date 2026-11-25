@@ -83,10 +83,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Hermes Trutine Laboratory" },
+      { title: "Hermes Trutine — Birth Time Rectification" },
       { name: "description", content: "Ancient astrological methodology. Transparent astronomical calculations." },
-      { name: "author", content: "Hermes Trutine Laboratory" },
-      { property: "og:title", content: "Hermes Trutine Laboratory" },
+      { name: "author", content: "Hermes Trutine" },
+      { property: "og:title", content: "Hermes Trutine — Birth Time Rectification" },
       { property: "og:description", content: "A private workspace for professional Trutine of Hermes research." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
