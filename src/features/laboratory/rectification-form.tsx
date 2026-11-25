@@ -18,7 +18,7 @@ type Duration = DurationInput;
 const emptyDuration: Duration = { days: '', hours: '0', weeks: '', unit: 'weeks', convention: 'custom' };
 const initialFields: Fields = { name: '', birthDate: '', earliestTime: '', latestTime: '', city: '', country: '', latitude: '', longitude: '', altitude: '0', timezone: '', ambiguity: 'reject', uncertainty: '', prenatalCity: '', prenatalLatitude: '', prenatalLongitude: '', prenatalAltitude: '0', conceptionDate: '', notes: '', verification: 'unverified', houseSystem: 'E' };
 const steps = ['Birth record', 'Prenatal assumptions', 'Calculation method', 'Review & save'];
-function Field({ label, children, wide = false, hint }: { label: string; children: ReactNode; wide?: boolean; hint?: string }) { return <label className={`field ${wide ? 'field-wide' : ''}`}><span>{label}</span>{children}{hint && <small>{hint}</small>}</label>; }
+function Field({ label, children, wide = false, hint }: { label: string; children: ReactNode; wide?: boolean; hint?: string | undefined }) { return <label className={`field ${wide ? 'field-wide' : ''}`}><span>{label}</span>{children}{hint && <small>{hint}</small>}</label>; }
 export function RectificationForm({ caseId }: { caseId?: string }) {
   const { cases, ready, error: storageError, save } = useCases();
   const navigate = useNavigate();
